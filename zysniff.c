@@ -1,36 +1,4 @@
 /*
- * zysniff 0.92.2
- *
- * Receives UDP packet trace from a ZyNOS-based router and feeds it to a TAP
- * interface for processing with your favourite sniffer.
- *
- * Zysniff should be easily portable to all *nixes with user space tunneling
- * support, but this version works only on Linux 2.6 because of differences in
- * TUN/TAP creation API.
- *
- *
- * USAGE:
- * zysniff <port> [<buf>]
- *     * port - UDP port to listen on
- *     * buf  - How much memory to allocate for incoming datagrams. Deafults to
- *              280 because my router doesn't capture more than the first 256
- *              bytes of every packet even if I tell it to create bigger trcp
- *              buffer. 24 extra bytes are for header added by ZyNOS.
- *
- * On the router:
- *
- * tc> sys trcpacket destroy
- * tc> sys trcpacket create 1 256	// create new buffer with one big entry
- * tc> sys trcpacket channel mpoa00 incoming
- * tc> sys trcpacket channel enet0 bothway
- * tc> sys trcpacket channel enet1 none
- * tc> sys trcpacket channel enet2 outgoing
- * tc> sys trcpacket udp addr 10.1.2.3	// destination IP address
- * tc> sys trcpacket udp port 1234	// and UDP port
- * tc> sys trcpacket udp switch on
- * tc> sys trcpacket switch on
- *
- *
  * Copyright (c) 2008-2011, Michal Pecio  < michal.pecio at google mail >
  * All rights reserved.
  *
